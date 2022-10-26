@@ -6,6 +6,10 @@ import { Component } from "@angular/core";
 })
 export class ProductListComponent {
     pageTitle: string = 'Product List';
+    imageWidth: number = 50;
+    imageMargin: number = 2;
+    showImage: boolean = false;
+    listFilter: string = 'cart';
     products: any[] = [
         {
             "prodid": 2,
@@ -15,7 +19,7 @@ export class ProductListComponent {
             "description": "15 gallon capacity rolling cart",
             "price": 32.99,
             "starRating": 4.2,
-            "imgUrl": "asset/images/garden_cart.png"
+            "imgUrl": "assets/images/me.jpg"
         },
         {
             "prodid": 5,
@@ -25,7 +29,11 @@ export class ProductListComponent {
             "description": "Curved claw steel hammer",
             "price": 8.9,
             "starRating": 4.8,
-            "imgUrl": "asset/images/garden_cart.png"
+            "imgUrl": "assets/images/me.jpg"
         }
     ];
+
+    toggleImage(): void {
+        this.showImage = !this.showImage;
+    }
 }
