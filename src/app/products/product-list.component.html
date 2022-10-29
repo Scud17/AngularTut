@@ -1,4 +1,4 @@
-<div class="card">
+<div>
     <div class="card-header">
         {{ pageTitle }}
     </div>
@@ -7,12 +7,12 @@
             <div class="col-md-2">Filter by:</div>
             <div class="col-md-4">
                 <input type="text" 
-                        [(ngModel)] = "listFilter"/>
+                        [(ngModel)]="listFilter"/>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <h4>Filterd by: {{listFilter}}</h4>
+                <h4>Filterd by: {{ listFilter }}</h4>
             </div>
         </div>
         <div class="table-responsive">
@@ -22,7 +22,7 @@
                         <th>
                             <button class="btn btn-primary"
                                     (click)="toggleImage()">
-                                {{showImage ? "Hide" : 'Show'}} Image
+                                {{showImage ? "Hide" : "Show"}} Image
                             </button>
                         </th>
                         <th>Product</th>
@@ -35,16 +35,16 @@
                 <tbody>
                     <tr *ngFor="let prod of products">
                         <td>
-                            <img    *ngIf="showImage"
-                                    [src]="prod.imgUrl"
-                                    [title]="prod.prodName"
-                                    [style.width.px]="imageWidth"
-                                    [style.margin.px]="imageMargin">
+                            <img *ngIf="showImage" 
+                                 [src]="prod.imgUrl"
+                                 [title]="prod.prodName"
+                                 [width]="imageWidth"
+                                 [style.margin.px]="imageMargin">
                         </td>
                         <td>{{prod.prodName}}</td>
                         <td>{{prod.prodCode | lowercase}}</td>
                         <td>{{prod.releaseDate}}</td>
-                        <td>{{prod.price | currency:'USD':'symbol':'1.2-2'}}</td>
+                        <td>{{prod.price | currency:"USD":"symbol":"1.2-2"}}</td>
                         <td>{{prod.starRating}}</td>
                     </tr>
                 </tbody>
