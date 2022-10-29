@@ -19,7 +19,9 @@ export class ProductListComponent implements OnInit{
     set listFilter(value: string){
         this._listFilter = value;
         console.log("in Setter:", value);
+        this.filteredProducts = this.performFilter(value);
     }
+    filteredProducts: IProduct[] = [];
     products: IProduct[] = [
         {
             "prodid": 2,
@@ -49,5 +51,11 @@ export class ProductListComponent implements OnInit{
 
     toggleImage(): void {
         this.showImage = !this.showImage;
+    }
+
+    performFilter(filterBy: string): IProduct[]{
+        filterBy = filterBy.toLocaleLowerCase();
+        return this.products.filter((prod : IProduct) =>
+        prod.prodName.toLocaleLowerCase().includes(filterBy));
     }
 }
