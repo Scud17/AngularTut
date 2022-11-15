@@ -1,52 +1,28 @@
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { catchError, Observable, tap, throwError } from "rxjs";
 import { IProduct } from "./product";
 
 @Injectable({
     providedIn: "root"
 })
 export class ProductService {
-    getProducts(): IProduct[] {
-        return [
-            {
-                "prodid": 2,
-                "prodName": "Garden Cart",
-                "prodCode": "GDN-0023",
-                "releaseDate": "March 18, 2021",
-                "description": "15 gallon capacity rolling cart",
-                "price": 32.99,
-                "starRating": 4.2,
-                "imgUrl": "assets/images/me.jpg"
-            },
-            {
-                "prodid": 5,
-                "prodName": "Hammer",
-                "prodCode": "TBX-0048",
-                "releaseDate": "May 11, 2021",
-                "description": "Curved claw steel hammer",
-                "price": 8.9,
-                "starRating": 4.8,
-                "imgUrl": "assets/images/me.jpg"
-            },
-            {
-                "prodid": 5,
-                "prodName": "Shovel",
-                "prodCode": "GDN-0024",
-                "releaseDate": "March 18, 2021",
-                "description": "Good old shovel",
-                "price": 15.99,
-                "starRating": 3.5,
-                "imgUrl": "assets/images/me.jpg"
-            },
-            {
-                "prodid": 1,
-                "prodName": "Nail",
-                "prodCode": "TBX-0049",
-                "releaseDate": "May 11, 2021",
-                "description": "A nail",
-                "price": 18.9,
-                "starRating": 5,
-                "imgUrl": "assets/images/me.jpg"
-            }
-        ]
+    private productUrl = "api/products/products.json";
+    constructor(private http:HttpClient){}
+    getProducts(): Observable<IProduct[]> {
+        return this.http.get<IProduct[]>(this.productUrl).pipe(
+            tap(data => console.log('All: ', JSON.stringify(data))), 
+            catchError(this.handleError));
+    }
+
+    handleError(err: HttpErrorResponse){
+        let errorMessage = "";
+        if(err.error instanceof ErrorEvent) {
+            errorMessage = `An error occured: ${ err.error.message }`;
+        }else{
+            errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(()=> errorMessage);
     }
 }
