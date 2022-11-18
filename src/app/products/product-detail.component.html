@@ -1,8 +1,19 @@
-<div class="card">
+<div class="card" *ngIf = "product">
     <div class="card-header">
-    <!-- *ngIf = "product"> -->
-        {{ pageTitle + ": "+ product?.prodName }}
+        {{ pageTitle + ": "+ product.prodName }}
     </div>
+    <div class="card-body">
+        <img class="card-img-top" 
+                [src]= "product.imgUrl" 
+                alt="">
+        <h5 class="card-title">{{ product.prodName }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ product.description }}</h6>
+        <p class="card-text">Product Code: {{ product.prodCode | lowercase | convertToSpaces:"-"}}</p>
+        <p class="card-text">Product Release Date: {{ product.releaseDate }}</p>
+        <p class="card-text">Product Code: {{ product.prodCode }}</p>
+        <p class="card-text">Product Price: {{ product.price | currency:"USD":"symbol":"1.2-2"}}</p>
+        <p class="card-text">Product Rating: <pm-star [rating] = "product.starRating"></pm-star></p>
+      </div>
     <div class="card-footer">
         <button class="btn btn-outline-secondary"
                 style="width:80px"
