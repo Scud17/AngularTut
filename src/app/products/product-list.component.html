@@ -41,7 +41,11 @@
                                  [width]="imageWidth"
                                  [style.margin.px]="imageMargin">
                         </td>
-                        <td>{{prod.prodName}}</td>
+                        <td>
+                            <a [routerLink]="['/products', prod.prodid]">
+                                {{ prod.prodName }}
+                            </a>
+                        </td>
                         <td>{{prod.prodCode | lowercase | convertToSpaces:"-"}}</td>
                         <td>{{prod.releaseDate}}</td>
                         <td>{{prod.price | currency:"USD":"symbol":"1.2-2"}}</td>
